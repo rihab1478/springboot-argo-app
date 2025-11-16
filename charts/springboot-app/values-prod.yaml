@@ -1,0 +1,13 @@
+app:
+  image: "topapp204/app:1.0.0"
+  port: 8080
+
+postgres:
+  image: "postgres:15"
+  db: springdb
+  user: postgres
+  password: prodpassword
+  port: 5432
+
+storage:
+  size: 5Gi

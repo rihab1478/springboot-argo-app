@@ -1,0 +1,13 @@
+app:
+  image: "topapp204/app:staging-latest"
+  port: 8080
+
+postgres:
+  image: "postgres:15"
+  db: springdb
+  user: postgres
+  password: stagingpassword
+  port: 5432
+
+storage:
+  size: 2Gi

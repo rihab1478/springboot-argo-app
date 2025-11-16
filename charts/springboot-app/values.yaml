@@ -1,0 +1,23 @@
+# the default values
+app:
+  image: topapp204/app:latest
+  port: 8080
+  replicas: 1
+
+# PostgreSQL values
+postgres:
+  image: postgres:15
+  db: springdb
+  user: postgres
+  password: postgres
+  port: 5432
+  replicas: 1
+  storage: 1Gi
+
+# Service types
+service:
+  app:
+    type: NodePort
+    nodePort: 30080
+  postgres:
+    type: ClusterIP

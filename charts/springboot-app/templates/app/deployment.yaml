@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "springboot-app.fullname" . }}-app
+  labels:
+    {{- include "springboot-app.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.app.replicas }}
+  selector:
+    matchLabels:
+      app: {{ include "springboot-app.fullname" . }}-app
+  template:
+    metadata:
+      labels:
+        app: {{ include "springboot-app.fullname" . }}-app
+    spec:
+      containers:
+        - name: springboot-app
+          image: "{{ .Values.app.image }}"
+          ports:
+            - containerPort: {{ .Values.app.port }}
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:postgresql://{{ include "springboot-app.fullname" . }}-postgres:{{ .Values.postgres.port }}/{{ .Values.postgres.db }}"
+            - name: SPRING_DATASOURCE_USERNAME
+              value: {{ .Values.postgres.user }}
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "springboot-app.fullname" . }}-postgres-secret
+                  key: password

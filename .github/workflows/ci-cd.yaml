@@ -73,8 +73,8 @@ jobs:
           argocd login ${{ secrets.ARGOCD_SERVER }} \
             --username ${{ secrets.ARGOCD_USER }} \
             --password ${{ secrets.ARGOCD_PASSWORD }} \
-            --grpc-web --insecure
+            --grpc-web
 
       - name: Sync application in Argo CD
         run: |
-          argocd app sync $APP_NAME --grpc-web --insecure
+          argocd app sync $APP_NAME --grpc-web

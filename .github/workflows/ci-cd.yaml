@@ -74,7 +74,10 @@ jobs:
             --username ${{ secrets.ARGOCD_USER }} \
             --password ${{ secrets.ARGOCD_PASSWORD }} \
             --grpc-web
-
+      - name: Check Argo CD app permissions
+        run: |
+          argocd app get $APP_NAME
+          argocd proj get $APP_NAME || echo "Project not found"
       - name: Sync application in Argo CD
         run: |
           argocd app sync $APP_NAME --grpc-web

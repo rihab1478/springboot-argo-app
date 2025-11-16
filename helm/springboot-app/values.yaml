@@ -1,0 +1,16 @@
+replicaCount: 1
+
+image:
+  repository: topapp204/app
+  tag: aplication
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8080
+
+postgresService: postgresql  # Service name of PostgreSQL
+postgresPort: 5432
+postgresDatabase: springdb
+postgresUser: postgres
+postgresPassword: postgres

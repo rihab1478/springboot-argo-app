@@ -1,0 +1,6 @@
+apiVersion: v2
+name: springboot-app
+description: A simple Spring Boot app with PostgreSQL
+type: application
+version: 0.1.0
+appVersion: "0.0.1"

@@ -32,13 +32,16 @@ jobs:
       - name: Set image tag based on branch
         id: vars
         run: |
-          echo "BRANCH_NAME=${GITHUB_REF##*/}" >> $GITHUB_ENV
-          if [[ "${GITHUB_REF##*/}" == "main" ]]; then
+          BRANCH_NAME=${GITHUB_REF##*/}
+          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
+          
+          if [[ "$BRANCH_NAME" == "main" ]]; then
             echo "IMAGE_TAG=prod-1.0.${GITHUB_RUN_NUMBER}" >> $GITHUB_ENV
-          elif [[ "${GITHUB_REF##*/}" == "staging" ]]; then
+          elif [[ "$BRANCH_NAME" == "staging" ]]; then
             echo "IMAGE_TAG=staging-1.0.${GITHUB_RUN_NUMBER}" >> $GITHUB_ENV
           else
             echo "IMAGE_TAG=dev-1.0.${GITHUB_RUN_NUMBER}" >> $GITHUB_ENV
+          fi
 
       - name: Build and push Docker image
         run: |

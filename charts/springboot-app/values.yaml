@@ -1,6 +1,6 @@
 # the default values
 app:
-  image: topapp204/app:latest
+  image: "topapp204/app:aplication"
   port: 8080
   replicas: 1
 

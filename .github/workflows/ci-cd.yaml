@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout 
         uses: actions/checkout@v3
 
       - name: Set up JDK 17
@@ -74,15 +74,10 @@ jobs:
 
       - name: Update Argo CD application with new image
         run: |
-          # Method 1: Update using app set (Recommended)
           argocd app set $APP_NAME \
             --helm-set image.repository=$IMAGE_NAME \
             --helm-set image.tag=$IMAGE_TAG \
             --grpc-web
-          
-          # Alternative: If the above doesn't work, use patch
-          # kubectl patch app $APP_NAME -n argocd --type='json' -p='[{"op": "replace", "path": "/spec/source/helm/parameters/0/value", "value": "'$IMAGE_NAME':'$IMAGE_TAG'"}]'
-
       - name: Sync application in Argo CD
         run: |
           # Force sync with pruning
@@ -102,4 +97,4 @@ jobs:
       - name: Verify deployment
         run: |
           argocd app get $APP_NAME --grpc-web
-          echo "Deployment completed successfully!"
+          echo "Deployment completed"
